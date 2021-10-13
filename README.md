@@ -12,7 +12,7 @@ import cv2
 
 # Image Manipulation
 
-## Reading and displaying an image
+## Reading and Displaying an Image
 
 ```py
 img = cv2.imread('cute_cat.jpeg')
@@ -20,15 +20,16 @@ cv2.imshow('Cute Cat', img)
 cv2.waitKey(0)
 ```
 
-<details><summary>cv2.imread(path, flag)</summary>
+<details><summary><strong>cv2.imread(path, flag)</strong></summary>
 
 <br>
+
 Capture an image from a specified file, which you can then assign to a variable. If an image can't be read, this method returns an empty matrix.
 
 This method accepts two parameters:
 
-- Path: the path to the specified image in a string format.
-- Flag: specifies the way in which teh image should be read. The default flag is `cv2.IMREAD_COLOR`.
+- `Path`: the path to the specified image in a string format.
+- `Flag`: specifies the way in which the image should be read. The default flag is `cv2.IMREAD_COLOR`.
 
 These are the three possible flag parameters for the method:
 
@@ -38,33 +39,32 @@ These are the three possible flag parameters for the method:
 
 </details>
 
-<details><summary>cv2.imshow(window_name, image)</summary>
+<details><summary><strong>cv2.imshow(window_name, source)</strong></summary>
 
 <br>
+
 Display an image in a new window. The window will automatically scale to the image size.
 
 This method accepts two parameters:
 
-- Window name: a string respresenting the name of the window in which the image will be displayed.
-- Image: the image that will be displayed in the window.
+- `Window name`: a string respresenting the name of the window in which the image will be displayed.
+- `Source`: the image that will be displayed in the window.
 
 </details>
 
-<details><summary>cv2.waitKey(delay)</summary>
+<details><summary><strong>cv2.waitKey(delay)</strong></summary>
 
 <br>
+
 Necessary to avoid the script from immediately terminating.
 
 The method accepts a delay input in milliseconds. This is the time that the script will wait for the program to continue. If `0` is passed, the program will wait for input indefinitely. In this case, if waitkey is not used, the program will automatically terminate after the imshow line runs, resulting in the image flashing in screen for a fraction of a second. Passing a `0` wil ensure the image stays on screen until the user chooses to close it.
-<br><br>
 
 </details>
 
 <br>
 
-# Video Manipulation
-
-## Reading and displaying a video
+## Reading and Displaying a Video
 
 ```py
 video = cv.VideoCapture('cute_dog.mp4')
@@ -78,48 +78,90 @@ cv2.destroyAllWindows()
 
 ```
 
-<details><summary>cv2.VideoCapture(path/source)</summary>
+<details><summary><strong>cv2.VideoCapture(path/source)</strong></summary>
 
 <br>
+
 Create a video capture object from a source, which can then be stored in a variable.
 
 This method accepts the source of the video as a parameter. Passing path to a video as a string will allow you to use a local video file. An integer can also be passed, and refers to a camera on the computer. Passing `0` will typically capture video from a webcam. Passing subsequent integers will allow accessing other cameras.
-<br><br>
 
 </details>
 
-<details><summary>video.read()</summary>
+<details><summary><strong>video.read()</strong></summary>
 
 <br>
+
 Read the video frame by frame. It returns a boolean that tells us whether reading the frame was successful, and the frame itself. The operation needs to be performed inside a while loop.
-<br><br>
 
 </details>
 
-<details><summary>cv2.imshow(window_name, image)</summary>
+<details><summary><strong>video.release()</strong></summary>
 
 <br>
-Displays a frame of the video in a window. The window will automatically scale to the video size.
 
-This method accepts two parameters:
-
-- Window name: a string respresenting the name of the window in which the video will be played.
-- Image: the image (frame) that will be displayed in the window.
+Close video or capturing device. Must be called before creating another instance of the video capture object.
 
 </details>
 
-<details><summary>video.release()</summary>
+<details><summary><strong>cv2.destroyAllWindows()</strong></summary>
 
 <br>
-Close video or captruing device. Must be called before creating another instance of the video capture object.
-<br><br>
+
+Destroy all currently open windows. To destroy a specific window, use the function `cv2.destroyWindow()` where you pass the exact window name.
 
 </details>
-
-<details><summary>cv2.destroyAllWindows()</summary>
 
 <br>
-Destroys all currently open windows. To destroy a specific window, use the function `cv2.destroyWindow()` where you pass the exact window name.
-<br><br>
+
+## Resizing and Rescaling an Image
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+
+def rescaleFrame(image, scale=0.75):
+    width = int(image.shape[1] * scale)
+    height = int(image.shape[0] * scale)
+    dimensions = (width, height)
+    return cv2.resize(image, dimensions, interpolation=cv2.INTER_AREA)
+
+cv2.imshow('Cute Cat', rescaleFrame(img))
+cv2.waitKey(0)
+```
+
+<details><summary><strong>frame.shape</strong></summary>
+
+<br>
+
+The `shape` property of an image returns the following tuple: (height, width, num_of_channels). For example a colored image with a resolution of 1920x1080 may return (1080, 1920, 3).
+
+- `Height`: number of pixel rows in the image or the number of pixels in each column of the image array.
+- `Width`: number of pixel columns in the image or the number of pixels in each row of the image array.
+- `Number of channels`: number of components used to represent each pixel.
 
 </details>
+
+<details><summary><strong>cv2.resize(source, desired_size, [fx], [fy], [interpolation])</strong></summary>
+
+<br>
+
+Change the original height and/or width of a source image.
+
+This method accepts two required and three optional parameters:
+
+- `Source`: input image or frame.
+- `Desired size`: Desired height and width of the output image in the form of a tuple.
+- `Fx` (Optional): scale factor along the horizontal axis.
+- `Fy` (Optional): scale factor along the vertical axis.
+- `Intepolation` (Optional): Behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
+  - `cv2.INTER_NEAREST`: finds the “nearest” neighboring pixel and assumes the intensity value. Often results in relatively poor image quality and “blocky” artifacts.
+  - `cv2.INTER_LINEAR` (default): takes neighboring pixels and uses this neighborhood to calculate the interpolated value (rather than just assuming the nearest pixel value).
+  - `cv2.INTER_AREA`: resampling using pixel area relation. It may be a preferred method for image decimation, as it gives moiré-free results. But when the image is zoomed, it is similar to the `cv2.INTER_NEAREST` method.
+  - `cv2.INTER_CUBIC`: a bicubic interpolation over 4 x 4 pixel neighborhood.
+  - `cv2.INTER_LANCSOZ4`: a Lanczos interpolation over 8×8 pixel neighborhood.
+
+[This article shows examples of how the different interpolation methods may affect the quality of the image.](https://chadrick-kwag.net/cv2-resize-interpolation-methods/)
+
+</details>
+
+<br>
