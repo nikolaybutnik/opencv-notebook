@@ -177,7 +177,7 @@ def rescaleFrame(frame, scale=0.75):
     dimensions = (width, height)
     return cv2.resize(frame, dimensions, interpolation=cv.INTER_AREA)
 
-while True:
+while (video.isOpened()):
     isTrue, frame = video.read()
     rescaled_frame = rescaleFrame(frame, 0.5)
     cv2.imshow('Cute Dog', rescaled_frame)
@@ -192,19 +192,43 @@ cv2.destroyAllWindows()
 ```py
 video = cv2.VideoCapture(0)
 
-# This function will only work on live cam video, and not on video files.
-def changeRes(width, height):
-    video.set(3, width)
-    video.set(4, height)
-
-changeRes(1920, 1080)
-
-while True:
+while (video.isOpened()):
     isTrue, frame = video.read()
-    if isTrue:
-        cv2.imshow('Webcam', frame)
-        if cv2.waitKey(25) & 0xFF == ord('q'):
-            break
+    resized_frame = imutils.resize(frame, width=320)
+    cv2.imshow('Normal', frame)
+    cv2.imshow('Resized', resized_frame)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 video.release()
 cv2.destroyAllWindows()
 ```
+
+<details><summary><strong>video.isOpened()</strong></summary>
+
+<br>
+
+Returns `True` if video capturing has been initialized.
+
+</details>
+
+<details><summary><strong>imutils.resize(source, [width], [height], [inter])</strong></summary>
+
+<br>
+
+`imutils.resize` function maintains the aspect ratio and provides the keyword arguments `width` and `height` so the image can be resized to the intended width/height while (1) maintaining aspect ratio and (2) ensuring the dimensions of the image do not have to be explicitly computed by the developer.
+
+This method accepts one required and three optional parameters:
+
+- `Source`: input image or frame.
+- `Width` (Optional): desired width of the resulting ouput.
+- `Height` (Optional): desired height of the resulting ouput.
+- `Intepolation` (Optional): Behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
+  - `cv2.INTER_NEAREST`: finds the “nearest” neighboring pixel and assumes the intensity value. Often results in relatively poor image quality and “blocky” artifacts.
+  - `cv2.INTER_LINEAR` (default): takes neighboring pixels and uses this neighborhood to calculate the interpolated value (rather than just assuming the nearest pixel value).
+  - `cv2.INTER_AREA`: resampling using pixel area relation. It may be a preferred method for image decimation, as it gives moiré-free results. But when the image is zoomed, it is similar to the `cv2.INTER_NEAREST` method.
+  - `cv2.INTER_CUBIC`: a bicubic interpolation over 4 x 4 pixel neighborhood.
+  - `cv2.INTER_LANCSOZ4`: a Lanczos interpolation over 8×8 pixel neighborhood.
+
+[This article shows examples of how the different interpolation methods may affect the quality of the image.](https://chadrick-kwag.net/cv2-resize-interpolation-methods/)
+
+</details>
