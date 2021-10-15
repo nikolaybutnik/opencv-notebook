@@ -165,3 +165,46 @@ This method accepts two required and three optional parameters:
 </details>
 
 <br>
+
+## Resizing and Rescaling a Video
+
+```py
+video = cv2.VideoCapture('cute_dog.mp4')
+
+def rescaleFrame(frame, scale=0.75):
+    width = int(frame.shape[1] * scale)
+    height = int(frame.shape[0] * scale)
+    dimensions = (width, height)
+    return cv2.resize(frame, dimensions, interpolation=cv.INTER_AREA)
+
+while True:
+    isTrue, frame = video.read()
+    rescaled_frame = rescaleFrame(frame, 0.5)
+    cv2.imshow('Cute Dog', rescaled_frame)
+    if cv2.waitKey(25) & 0xFF == ord('q'):
+        break
+video.release()
+cv2.destroyAllWindows()
+```
+
+## Resizing and Rescaling a Live Video
+
+```py
+video = cv2.VideoCapture(0)
+
+# This function will only work on live cam video, and not on video files.
+def changeRes(width, height):
+    video.set(3, width)
+    video.set(4, height)
+
+changeRes(1920, 1080)
+
+while True:
+    isTrue, frame = video.read()
+    if isTrue:
+        cv2.imshow('Webcam', frame)
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            break
+video.release()
+cv2.destroyAllWindows()
+```
