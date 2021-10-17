@@ -232,3 +232,68 @@ This method accepts one required and three optional parameters:
 [This article shows examples of how the different interpolation methods may affect the quality of the image.](https://chadrick-kwag.net/cv2-resize-interpolation-methods/)
 
 </details>
+
+<br>
+
+## Drawing Shapes on Images
+
+### Creating a Blank Image
+
+```py
+blank = numpy.zeros((500, 500, 3), dtype='uint8')
+```
+
+<details><summary><strong>numpy.zeros(shape, [dtype], [order])</strong></summary>
+
+<br>
+
+Returns new array of given shape and type, filled with zeros.
+
+This method accepts one required and two optional parameters:
+
+- `Shape`: integer or sequence of integers.
+  ```py
+  array_1d = numpy.zeros(3)
+  # Returns
+  [0. 0. 0.]
+  ```
+  ```py
+  array_2d = numpy.zeros((2, 3), dtype=int)
+  # Returns
+  [[0 0 0]
+  [0 0 0]]
+  ```
+  ```py
+  array_mix_type = np.zeros((2, 2), dtype=[('x', 'int'), ('y', 'float')])
+  # Returns
+  [[(0, 0.) (0, 0.)]
+  [(0, 0.) (0, 0.)]]
+  ```
+- `Dtype` (Optional): desired data-type for the returned array. The default value is `float64`.
+- `Order` (Optional): whether to store multi-dimensional data in row-major (C-style) or column-major (Fortran-style) order in memory.
+
+</details>
+
+<br>
+
+### Drawing a Line
+
+```py
+cv2.line(blank, (100, 250), (300, 400), (255, 255, 255), thickness=3)
+cv2.imshow('Line', blank)
+```
+
+<details><summary><strong>cv2.line(image, start_point, end_point, thickness)</strong></summary>
+
+<br>
+
+Draw a straight line on an image.
+
+This method accepts four required parameters:
+
+- `Image`: source image on which the line will be drawn.
+- `Start Point`: starting point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `End Point`: ending point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `Thickness`: thickness of the line in pixels.
+
+</details>

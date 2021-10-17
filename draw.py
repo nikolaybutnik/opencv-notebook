@@ -17,7 +17,7 @@ blank[200:300, 300:400] = 0, 0, 255
 cv.imshow('Red', blank)
 
 # Draw a rectangle
-# Specyfy start/end coordinates, color, and line thickness
+# Specify start/end coordinates, color, and line thickness
 # cv.rectangle(blank, (0, 0), (499, 250), (0, 255, 0), thickness=1)
 # To fill the rectangle use thickness=cv.FILLED or thickness=-1
 # Alternatively, you can select pixels relative to the shape
