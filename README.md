@@ -283,17 +283,70 @@ cv2.line(blank, (100, 250), (300, 400), (255, 255, 255), thickness=3)
 cv2.imshow('Line', blank)
 ```
 
-<details><summary><strong>cv2.line(image, start_point, end_point, thickness)</strong></summary>
+<details><summary><strong>cv2.line(image, start_point, end_point, color, thickness)</strong></summary>
 
 <br>
 
 Draw a straight line on an image.
 
-This method accepts four required parameters:
+This method accepts five required parameters:
 
 - `Image`: source image on which the line will be drawn.
 - `Start Point`: starting point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
 - `End Point`: ending point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `Color`: color of the line to be drawn. BGR format, tuple.
 - `Thickness`: thickness of the line in pixels.
 
 </details>
+
+<br>
+
+### Drawing a Rectangle
+
+```py
+cv2.rectangle(blank, (0, 0), (499, 250), (0, 255, 0), thickness=1)
+cv2.imshow('Rectangle', blank)
+```
+
+<details><summary><strong>cv2.rectangle(image, start_point, end_point, color, thickness)</strong></summary>
+
+<br>
+
+Draw a rectangle on an image.
+
+This method accepts five required parameters:
+
+- `Image`: source image on which the rectangle will be drawn.
+- `Start Point`: starting point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `End Point`: ending point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `Color`: color of the rectangle border line to be drawn. BGR format, tuple.
+- `Thickness`: thickness of the rectangle border line in pixels. Thickness of -1 px will fill the rectangle shape with the specified color.
+
+</details>
+
+<br>
+
+### Drawing a Circle
+
+```py
+cv2..circle(blank, (blank.shape[1]//2, blank.shape[0]//2), 40, (0, 0, 255), thickness=3)
+cv2.imshow('Circle', blank)
+```
+
+<details><summary><strong>cv2.circle(image, center_point, radius, color, thickness)</strong></summary>
+
+<br>
+
+Draw a circle on an image.
+
+This method accepts five required parameters:
+
+- `Image`: source image on which the rectangle will be drawn.
+- `Center Point`: center coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `Radius`: radius of the circle in pixels.
+- `Color`: color of the circle border line to be drawn. BGR format, tuple.
+- `Thickness`: thickness of the circle border line in pixels. Thickness of -1 px will fill the rectangle shape with the specified color.
+
+</details>
+
+<br>
