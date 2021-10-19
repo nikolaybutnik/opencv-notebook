@@ -28,8 +28,8 @@ Capture an image from a specified file, which you can then assign to a variable.
 
 This method accepts two parameters:
 
-- `Path`: the path to the specified image in a string format.
-- `Flag`: specifies the way in which the image should be read. The default flag is `cv2.IMREAD_COLOR`.
+- `path`: the path to the specified image in a string format.
+- `flag`: specifies the way in which the image should be read. The default flag is `cv2.IMREAD_COLOR`.
 
 These are the three possible flag parameters for the method:
 
@@ -39,7 +39,7 @@ These are the three possible flag parameters for the method:
 
 </details>
 
-<details><summary><strong>cv2.imshow(window_name, source)</strong></summary>
+<details><summary><strong>cv2.imshow(window_name, image)</strong></summary>
 
 <br>
 
@@ -47,8 +47,8 @@ Display an image in a new window. The window will automatically scale to the ima
 
 This method accepts two parameters:
 
-- `Window name`: a string respresenting the name of the window in which the image will be displayed.
-- `Source`: the image that will be displayed in the window.
+- `window_name`: a string respresenting the name of the window in which the image will be displayed.
+- `image`: the source image that will be displayed in the window.
 
 </details>
 
@@ -58,7 +58,7 @@ This method accepts two parameters:
 
 Necessary to avoid the script from immediately terminating.
 
-The method accepts a delay input in milliseconds. This is the time that the script will wait for the program to continue. If `0` is passed, the program will wait for input indefinitely. In this case, if waitkey is not used, the program will automatically terminate after the imshow line runs, resulting in the image flashing in screen for a fraction of a second. Passing a `0` wil ensure the image stays on screen until the user chooses to close it.
+The method accepts a `delay` input in milliseconds. This is the time that the script will wait for the program to continue. If `0` is passed, the program will wait for input indefinitely. In this case, if waitkey is not used, the program will automatically terminate after the imshow line runs, resulting in the image flashing in screen for a fraction of a second. Passing a `0` wil ensure the image stays on screen until the user chooses to close it.
 
 </details>
 
@@ -141,19 +141,20 @@ The `shape` property of an image returns the following tuple: (height, width, nu
 
 </details>
 
-<details><summary><strong>cv2.resize(source, desired_size, [fx], [fy], [interpolation])</strong></summary>
+<details><summary><strong>cv2.resize(src, dsize, [dst], [fx], [fy], [interpolation])</strong></summary>
 
 <br>
 
 Change the original height and/or width of a source image.
 
-This method accepts two required and three optional parameters:
+This method accepts two required and four optional parameters:
 
-- `Source`: input image or frame.
-- `Desired size`: Desired height and width of the output image in the form of a tuple.
-- `Fx` (Optional): scale factor along the horizontal axis.
-- `Fy` (Optional): scale factor along the vertical axis.
-- `Intepolation` (Optional): Behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
+- `src`: input image or frame.
+- `dsize`: desired height and width of the output image in the form of a tuple.
+- `dst` (Optional): destination output image.
+- `fx` (Optional): scale factor along the horizontal axis.
+- `fy` (Optional): scale factor along the vertical axis.
+- `intepolation` (Optional): behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
   - `cv2.INTER_NEAREST`: finds the “nearest” neighboring pixel and assumes the intensity value. Often results in relatively poor image quality and “blocky” artifacts.
   - `cv2.INTER_LINEAR` (default): takes neighboring pixels and uses this neighborhood to calculate the interpolated value (rather than just assuming the nearest pixel value).
   - `cv2.INTER_AREA`: resampling using pixel area relation. It may be a preferred method for image decimation, as it gives moiré-free results. But when the image is zoomed, it is similar to the `cv2.INTER_NEAREST` method.
@@ -211,7 +212,7 @@ Returns `True` if video capturing has been initialized.
 
 </details>
 
-<details><summary><strong>imutils.resize(source, [width], [height], [inter])</strong></summary>
+<details><summary><strong>imutils.resize(src, [width], [height], [inter])</strong></summary>
 
 <br>
 
@@ -219,10 +220,10 @@ Returns `True` if video capturing has been initialized.
 
 This method accepts one required and three optional parameters:
 
-- `Source`: input image or frame.
-- `Width` (Optional): desired width of the resulting ouput.
-- `Height` (Optional): desired height of the resulting ouput.
-- `Intepolation` (Optional): Behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
+- `src`: input image or frame.
+- `width` (Optional): desired width of the resulting ouput.
+- `height` (Optional): desired height of the resulting ouput.
+- `inter` (Optional): interpolation. Behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
   - `cv2.INTER_NEAREST`: finds the “nearest” neighboring pixel and assumes the intensity value. Often results in relatively poor image quality and “blocky” artifacts.
   - `cv2.INTER_LINEAR` (default): takes neighboring pixels and uses this neighborhood to calculate the interpolated value (rather than just assuming the nearest pixel value).
   - `cv2.INTER_AREA`: resampling using pixel area relation. It may be a preferred method for image decimation, as it gives moiré-free results. But when the image is zoomed, it is similar to the `cv2.INTER_NEAREST` method.
@@ -251,7 +252,7 @@ Returns new array of given shape and type, filled with zeros.
 
 This method accepts one required and two optional parameters:
 
-- `Shape`: integer or sequence of integers.
+- `shape`: integer or sequence of integers.
   ```py
   array_1d = numpy.zeros(3)
   # Returns
@@ -269,8 +270,8 @@ This method accepts one required and two optional parameters:
   [[(0, 0.) (0, 0.)]
   [(0, 0.) (0, 0.)]]
   ```
-- `Dtype` (Optional): desired data-type for the returned array. The default value is `float64`.
-- `Order` (Optional): whether to store multi-dimensional data in row-major (C-style) or column-major (Fortran-style) order in memory.
+- `dtype` (Optional): desired data-type for the returned array. The default value is `float64`.
+- `order` (Optional): whether to store multi-dimensional data in row-major (C-style) or column-major (Fortran-style) order in memory.
 
 </details>
 
@@ -291,11 +292,11 @@ Draw a straight line on an image.
 
 This method accepts five required parameters:
 
-- `Image`: source image on which the line will be drawn.
-- `Start Point`: starting point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
-- `End Point`: ending point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
-- `Color`: color of the line to be drawn. BGR format, tuple.
-- `Thickness`: thickness of the line in pixels.
+- `image`: source image on which the line will be drawn.
+- `start_point`: starting point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `end_point`: ending point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `color`: color of the line to be drawn. BGR format, tuple.
+- `thickness`: thickness of the line in pixels.
 
 </details>
 
@@ -316,11 +317,11 @@ Draw a rectangle on an image.
 
 This method accepts five required parameters:
 
-- `Image`: source image on which the rectangle will be drawn.
-- `Start Point`: starting point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
-- `End Point`: ending point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
-- `Color`: color of the rectangle border line to be drawn. BGR format, tuple.
-- `Thickness`: thickness of the rectangle border line in pixels. Thickness of -1 px will fill the rectangle shape with the specified color.
+- `image`: source image on which the rectangle will be drawn.
+- `start_point`: starting point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `end_point`: ending point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `color`: color of the rectangle border line to be drawn. BGR format, tuple.
+- `thickness`: thickness of the rectangle border line in pixels. Thickness of -1 px will fill the rectangle shape with the specified color.
 
 </details>
 
@@ -333,7 +334,7 @@ cv2..circle(blank, (blank.shape[1]//2, blank.shape[0]//2), 40, (0, 0, 255), thic
 cv2.imshow('Circle', blank)
 ```
 
-<details><summary><strong>cv2.circle(image, center_point, radius, color, thickness)</strong></summary>
+<details><summary><strong>cv2.circle(image, center_coordinates, radius, color, thickness)</strong></summary>
 
 <br>
 
@@ -341,11 +342,11 @@ Draw a circle on an image.
 
 This method accepts five required parameters:
 
-- `Image`: source image on which the rectangle will be drawn.
-- `Center Point`: center coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
-- `Radius`: radius of the circle in pixels.
-- `Color`: color of the circle border line to be drawn. BGR format, tuple.
-- `Thickness`: thickness of the circle border line in pixels. Thickness of -1 px will fill the rectangle shape with the specified color.
+- `image`: source image on which the rectangle will be drawn.
+- `center_ccordinates`: center coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `radius`: radius of the circle in pixels.
+- `color`: color of the circle border line to be drawn. BGR format, tuple.
+- `thickness`: thickness of the circle border line in pixels. Thickness of -1 px will fill the rectangle shape with the specified color.
 
 </details>
 
@@ -359,23 +360,90 @@ cv2.imshow('Text', blank)
 cv2.waitKey(0)
 ```
 
-<details><summary><strong>cv2.putText(image, text, origin, font, font_scale, color, thickness, [line_type], [bottom_left_origin])</strong></summary>
+<details><summary><strong>cv2.putText(image, text, org, font, fontScale, color, thickness, [lineType], [bottomLeftOrigin])</strong></summary>
 
 <br>
 
 Draw a text string on an image.
 
-This method accepts five required parameters:
+This method accepts seven required and two optional parameters:
 
-- `Image`: source image on which the rectangle will be drawn.
-- `Text`: text string to be drawn on the image.
-- `Origin`: the coordinates of bottom-left corner of text. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
-- `Font`: denotes the font type. Example: cv2.FONT_HERSHEY_TRIPLEX.
-- `Font Scale`: font scale factor that is multiplied by the font-specific base size.
-- `Color`: color of the text to be drawn. BGR format, tuple.
-- `Thickness`: thickness of the text in pixels.
-- `Line Type` (Optional): type of the line to be used to draw text. Available options: cv2.FILLED, cv2.LINE_4, cv2.LINE_8, cv2.LINE_AA.
-- `Bottom Left Origin` (Optional): when true, the image data origin is at the bottom-left corner. Otherwise, it is at the top-left corner. True by default.
+- `image`: source image on which the rectangle will be drawn.
+- `text`: text string to be drawn on the image.
+- `org`: the coordinates of bottom-left corner of text. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `font`: denotes the font type. Example: cv2.FONT_HERSHEY_TRIPLEX.
+- `fontScale`: font scale factor that is multiplied by the font-specific base size.
+- `color`: color of the text to be drawn. BGR format, tuple.
+- `thickness`: thickness of the text in pixels.
+- `lineType` (Optional): type of the line to be used to draw text. Possible values:
+  - `cv2.FILLED`
+  - `cv2.LINE_4`
+  - `cv2.LINE_8`
+  - `cv2.LINE_AA`
+- `bottomLeftOrigin` (Optional): when true, the image data origin is at the bottom-left corner. Otherwise, it is at the top-left corner. True by default.
+
+</details>
+
+<br>
+
+## Converting an Image to Grayscale
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+cv2.imshow('Cute Cat Grayscale', img_gray)
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.cvtColor(src, code, [dst], [dstCn])</strong></summary>
+
+<br>
+
+Convert an image from one color space to another. There are more than 150 color-space conversion methods available in OpenCV.
+
+This method accepts two required and two optional parameters:
+
+- `src`: source image which will be converted to grayscale.
+- `code`: color space conversion code.
+- `dst` (Optional): output image of the same size and depth as source image.
+- `dstCn` (Optional): number of channels in the destination image. If the parameter is 0 then the number of the channels is derived automatically from source and code.
+
+</details>
+
+<br>
+
+## Blurring an Image
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+blurred_cat = cv2.GaussianBlur(img, (3, 3), cv2.BORDER_DEFAULT)
+cv2.imshow('Blurred Cat', blurred_cat)
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.GaussianBlur(src, ksize, [dst], [sigmaX], [sigmaY], [borderType])</strong></summary>
+
+<br>
+
+Apply Gaussian blur on input image. The blurring of an image means smoothening of an image i.e., removing outlier pixels that may be noise in the image.
+
+This method accepts two required and four optional parameters:
+
+- `src`: source image to which blur will be applied.
+- `ksize`: kernel size. Kernal is matrix of an (no. of rows)\*(no. of columns) order. Its size is given in the form of tuple (no. of rows, no. of columns). no. of rows and no. of columns should be odd. If ksize is set to (0 0), then ksize is computed from sigma values.
+- `dst` (Optional): output image.
+- `sigmaX` (Optional): standard deviation value of kernal along horizontal direction.
+- `sigmaY` (Optional): standard deviation value of kernal along vertical direction.
+- `borderType` (Optional): specifies image boundaries while kernel is applied on image borders. Possible values:
+  - `cv2.BORDER_CONSTANT`
+  - `cv2.BORDER_REPLICATE`
+  - `cv2.BORDER_REFLECT`
+  - `cv2.BORDER_WRAP`
+  - `cv2.BORDER_REFLECT_101`
+  - `cv2.BORDER_TRANSPARENT`
+  - `cv2.BORDER_REFLECT101`
+  - `cv2.BORDER_DEFAULT`
+  - `cv2.BORDER_ISOLATED`
 
 </details>
 
