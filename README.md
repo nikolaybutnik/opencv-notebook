@@ -350,3 +350,33 @@ This method accepts five required parameters:
 </details>
 
 <br>
+
+## Adding Text to Images
+
+```py
+cv2.putText(blank, 'Hello World', (150, 255), cv2.FONT_HERSHEY_TRIPLEX, 1.0, (0, 255, 0), thickness=2)
+cv2.imshow('Text', blank)
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.putText(image, text, origin, font, font_scale, color, thickness, [line_type], [bottom_left_origin])</strong></summary>
+
+<br>
+
+Draw a text string on an image.
+
+This method accepts five required parameters:
+
+- `Image`: source image on which the rectangle will be drawn.
+- `Text`: text string to be drawn on the image.
+- `Origin`: the coordinates of bottom-left corner of text. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
+- `Font`: denotes the font type. Example: cv2.FONT_HERSHEY_TRIPLEX.
+- `Font Scale`: font scale factor that is multiplied by the font-specific base size.
+- `Color`: color of the text to be drawn. BGR format, tuple.
+- `Thickness`: thickness of the text in pixels.
+- `Line Type` (Optional): type of the line to be used to draw text. Available options: cv2.FILLED, cv2.LINE_4, cv2.LINE_8, cv2.LINE_AA.
+- `Bottom Left Origin` (Optional): when true, the image data origin is at the bottom-left corner. Otherwise, it is at the top-left corner. True by default.
+
+</details>
+
+<br>
