@@ -236,6 +236,16 @@ This method accepts one required and three optional parameters:
 
 <br>
 
+## Cropping an Image
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+cropped = img[800:1500, 900:1600]
+cv2.imshow('Cute Cat', img)
+cv2.imshow('Cropped', cropped)
+cv2.waitKey(0)
+```
+
 ## Drawing Shapes on Images
 
 ### Creating a Blank Image
@@ -444,6 +454,94 @@ This method accepts two required and four optional parameters:
   - `cv2.BORDER_REFLECT101`
   - `cv2.BORDER_DEFAULT`
   - `cv2.BORDER_ISOLATED`
+
+</details>
+
+<br>
+
+## Edge Cascade, Image Dilation and Erosion
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+# Note: passing a blurred image decreases the amount of detected edges.
+canny = cv2.Canny(img, 125, 175)
+cv2.imshow('Edges', canny)
+# Dilating
+dilated = cv2.dilate(canny, (3, 3), iterations=1)
+cv2.imshow('Dilated', dilated)
+# Eroding
+eroded = cv2.erode(dilated, (3, 3), iterations=1)
+cv2.imshow('Eroded', eroded)
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.Canny(image, threshold1, threshold2, [apertureSize], [L2gradient])</strong></summary>
+
+<br>
+
+This method uses canny edge detection algorithm for finding the edges in the image.
+
+This method accepts three required and two optional parameters:
+
+- `image`: source image to be used for edge detection.
+- `threshold1`: the High threshold value of intensity gradient.
+- `threshold2`: the Low threshold value of intensity gradient.
+- `apertureSize` (Optional): order of Kernel (matrix) for the Sobel filter. Default value is (3 x 3). Value should be odd between 3 and 7. Used for finding image gradients. Filter is used for smoothening and sharpening of an image.
+- `L2gradient` (Optional): specifies the equation for finding gradient magnitude. L2gradient is of boolean type, and its default value is False.
+
+</details>
+
+<details><summary><strong>cv2.dilate(image, kernel , [dst], [anchor], [iterations], [borderType], [borderValue])</strong></summary>
+
+<br>
+
+This method is used to increase object area and accentuate features. A pixel element in the original image is ‘1’ if at least one pixel under the kernel is ‘1’. In cases like noise removal, erosion is followed by dilation. Since erosion removes white noises, it also shrinks the object, so we dilate it. Since noise is gone we can increase our object area without the noise coming back.
+
+This method accepts two required and five optional parameters:
+
+- `image`: source image to be dilated.
+- `kernel`: the matrix of odd size (3,5,7) to be convolved with the image.
+- `dst` (Optional): output image.
+- `anchor` (Optional): variable of type integer representing the anchor point. Default value is (-1, -1) meaning the anchor is at the kernel center.
+- `iterations` (Optional): integer value which determine how much you want to dilate a given image.
+- `borderType` (Optional): depicts the kind of border to be added. Possible values:
+  - `cv2.BORDER_CONSTANT`
+  - `cv2.BORDER_REPLICATE`
+  - `cv2.BORDER_REFLECT`
+  - `cv2.BORDER_WRAP`
+  - `cv2.BORDER_REFLECT_101`
+  - `cv2.BORDER_TRANSPARENT`
+  - `cv2.BORDER_REFLECT101`
+  - `cv2.BORDER_DEFAULT`
+  - `cv2.BORDER_ISOLATED`
+- `borderValue` (Optional): border value in case of a constant border.
+
+</details>
+
+<details><summary><strong>cv2.erode(image, kernel , [dst], [anchor], [iterations], [borderType], [borderValue])</strong></summary>
+
+<br>
+
+This method is used to erode away the boundaries of foreground objects. A pixel in the original image (either 1 or 0) will be considered 1 only if all the pixels under the kernel are 1, otherwise, it is eroded (made to zero). Thus all the pixels near the boundary will be discarded depending upon the size of the kernel. Useful for removing small white noises. Also used to detach connected objects.
+
+This method accepts two required and five optional parameters:
+
+- `image`: source image to be eroded.
+- `kernel`: the matrix of odd size (3,5,7) to be convolved with the image.
+- `dst` (Optional): output image.
+- `anchor` (Optional): variable of type integer representing the anchor point. Default value is (-1, -1) meaning the anchor is at the kernel center.
+- `iterations` (Optional): integer value which determine how much you want to dilate a given image.
+- `borderType` (Optional): depicts the kind of border to be added. Possible values:
+  - `cv2.BORDER_CONSTANT`
+  - `cv2.BORDER_REPLICATE`
+  - `cv2.BORDER_REFLECT`
+  - `cv2.BORDER_WRAP`
+  - `cv2.BORDER_REFLECT_101`
+  - `cv2.BORDER_TRANSPARENT`
+  - `cv2.BORDER_REFLECT101`
+  - `cv2.BORDER_DEFAULT`
+  - `cv2.BORDER_ISOLATED`
+- `borderValue` (Optional): border value in case of a constant border.
 
 </details>
 

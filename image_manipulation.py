@@ -30,3 +30,23 @@ img = cv.imread('cute_cat.jpeg')
 blurred_cat = cv.GaussianBlur(img, (3, 3), cv.BORDER_DEFAULT)
 cv.imshow('Blurred Cat', blurred_cat)
 cv.waitKey(0)
+
+# Edge Cascade
+img = cv.imread('cute_cat.jpeg')
+# Note: passing a blurred image decreases the amount of detected edges.
+canny = cv.Canny(img, 125, 175)
+cv.imshow('Edges', canny)
+# Dilating
+dilated = cv.dilate(canny, (3, 3), iterations=1)
+cv.imshow('Dilated', dilated)
+# Eroding
+eroded = cv.erode(dilated, (3, 3), iterations=1)
+cv.imshow('Eroded', eroded)
+cv.waitKey(0)
+
+# Cropping
+img = cv.imread('cute_cat.jpeg')
+cropped = img[800:1500, 900:1600]
+cv.imshow('Cute Cat', img)
+cv.imshow('Cropped', cropped)
+cv.waitKey(0)
