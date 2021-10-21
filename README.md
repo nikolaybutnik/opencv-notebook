@@ -151,7 +151,7 @@ This method accepts two required and four optional parameters:
 
 - `src`: input image or frame.
 - `dsize`: desired height and width of the output image in the form of a tuple.
-- `dst` (Optional): destination output image.
+- `dst` (Optional): output image of the same size and depth as src image.
 - `fx` (Optional): scale factor along the horizontal axis.
 - `fy` (Optional): scale factor along the vertical axis.
 - `intepolation` (Optional): behavior of neighboring pixels when increasing or decreasing the size of an image. This flag accepts the following options:
@@ -236,15 +236,60 @@ This method accepts one required and three optional parameters:
 
 <br>
 
-## Cropping an Image
+## Cropping
 
 ```py
 img = cv2.imread('cute_cat.jpeg')
 cropped = img[800:1500, 900:1600]
 cv2.imshow('Cute Cat', img)
-cv2.imshow('Cropped', cropped)
+cv2.imshow('Cropped Cat', cropped)
 cv2.waitKey(0)
 ```
+
+## Translation
+
+```py
+def translate(img, x, y):
+    trans_mat = numpy.float32([[1, 0, x], [0, 1, y]])
+    dimensions = (img.shape[1], img.shape[0])
+    return cv2.warpAffine(img, trans_mat, dimensions)
+
+img = cv2.imread('cute_cat.jpeg')
+translated = translate(img, 100, 100)
+cv2.imshow('Cute Cat', img)
+cv2.imshow('Translated Cat', translated)
+cv2.waitKey(0)
+```
+
+<details><summary><strong>numpy.float32(args)</strong></summary>
+
+<br>
+
+Convert a string or number to a 32-bit floating point number, if possible.
+
+In this case, used to generate a 2x3 affine transformation matrix implemented as a numpy array.
+
+</details>
+
+<details><summary><strong>cv2.warpAffine(src, M, dsize, [dst], [flags], [borderMode], [borderValue])</strong></summary>
+
+<br>
+
+Apply an affine transformation to an image.
+
+This method accepts three required and four optional parameters:
+
+- `src`: input image.
+- `M`: transformation matrix.
+- `dsize`: desired size of the output image.
+- `dst` (Optional): output image of the same size and depth as src image.
+- `flags` (Optional): combination of interpolation methods (see resize()) and the optional flag WARP_INVERSE_MAP that means that M is the inverse transformation (dst->src).
+- `borderMode` (Optional): pixel extrapolation method; when borderMode=BORDER_TRANSPARENT, it means that the pixels in the destination image corresponding to the “outliers” in the source image are not modified by the function.
+- `borderValue` (Optional): value used in case of a constant border; 0 by default.
+
+</details>
+
+<br>
 
 ## Drawing Shapes on Images
 
@@ -441,7 +486,7 @@ This method accepts two required and four optional parameters:
 
 - `src`: source image to which blur will be applied.
 - `ksize`: kernel size. Kernal is matrix of an (no. of rows)\*(no. of columns) order. Its size is given in the form of tuple (no. of rows, no. of columns). no. of rows and no. of columns should be odd. If ksize is set to (0 0), then ksize is computed from sigma values.
-- `dst` (Optional): output image.
+- `dst` (Optional): output image of the same size and depth as src image.
 - `sigmaX` (Optional): standard deviation value of kernal along horizontal direction.
 - `sigmaY` (Optional): standard deviation value of kernal along vertical direction.
 - `borderType` (Optional): specifies image boundaries while kernel is applied on image borders. Possible values:
@@ -501,7 +546,7 @@ This method accepts two required and five optional parameters:
 
 - `image`: source image to be dilated.
 - `kernel`: the matrix of odd size (3,5,7) to be convolved with the image.
-- `dst` (Optional): output image.
+- `dst` (Optional): output image of the same size and depth as src image.
 - `anchor` (Optional): variable of type integer representing the anchor point. Default value is (-1, -1) meaning the anchor is at the kernel center.
 - `iterations` (Optional): integer value which determine how much you want to dilate a given image.
 - `borderType` (Optional): depicts the kind of border to be added. Possible values:
@@ -528,7 +573,7 @@ This method accepts two required and five optional parameters:
 
 - `image`: source image to be eroded.
 - `kernel`: the matrix of odd size (3,5,7) to be convolved with the image.
-- `dst` (Optional): output image.
+- `dst` (Optional): output image of the same size and depth as src image.
 - `anchor` (Optional): variable of type integer representing the anchor point. Default value is (-1, -1) meaning the anchor is at the kernel center.
 - `iterations` (Optional): integer value which determine how much you want to dilate a given image.
 - `borderType` (Optional): depicts the kind of border to be added. Possible values:
