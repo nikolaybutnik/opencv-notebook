@@ -52,7 +52,7 @@ cv.imshow('Cute Cat', img)
 cv.imshow('Cropped', cropped)
 cv.waitKey(0)
 
-# Translating
+# Translation
 img = cv.imread('cute_cat.jpeg')
 
 
@@ -65,4 +65,29 @@ def translate(img, x, y):
 translated = translate(img, 100, 100)
 cv.imshow('Original Cat', img)
 cv.imshow('Translated Cat', translated)
+cv.waitKey(0)
+
+# Rotation
+img = cv.imread('cute_cat.jpeg')
+
+
+def rotate(img, angle, rot_point=None):
+    (height, width) = img.shape[:2]
+    if rot_point == None:
+        rot_point = (width//2, height//2)
+    rot_mat = cv.getRotationMatrix2D(rot_point, angle, 1.0)
+    dimensions = (width, height)
+    return cv.warpAffine(img, rot_mat, dimensions)
+
+
+rotated = rotate(img, 45)
+cv.imshow('Original Cat', img)
+cv.imshow('Rotated Cat', rotated)
+cv.waitKey(0)
+
+# Flipping
+img = cv.imread('cute_cat.jpeg')
+flipped = cv.flip(img, 0)
+cv.imshow('Original Cat', img)
+cv.imshow('Flipped Cat', flipped)
 cv.waitKey(0)

@@ -291,6 +291,69 @@ This method accepts three required and four optional parameters:
 
 <br>
 
+## Rotation
+
+```py
+def rotate(img, angle, rot_point=None):
+    (height, width) = img.shape[:2]
+    if rot_point == None:
+        rot_point = (width//2, height//2)
+    rot_mat = cv2.getRotationMatrix2D(rot_point, angle, 1.0)
+    dimensions = (width, height)
+    return cv2.warpAffine(img, rot_mat, dimensions)
+
+img = cv2.imread('cute_cat.jpeg')
+rotated = rotate(img, 45)
+cv2.imshow('Original Cat', img)
+cv2.imshow('Rotated Cat', rotated)
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.getRotationMatrix2D(center, angle, scale)</strong></summary>
+
+<br>
+
+Calculate an affine matrix of 2D rotation.
+
+This method accepts three required parameters:
+
+- `center`: center of rotation in the source image.
+- `angle`: rotation angle in degrees. Positive values mean counter-clockwise rotation (the coordinate origin is assumed to be the top-left corner).
+- `scale`: isotropic scale factor.
+
+</details>
+
+<br>
+
+## Flipping
+
+```py
+img = cv.imread('cute_cat.jpeg')
+flipped = cv.flip(img, 0)
+cv.imshow('Original Cat', img)
+cv.imshow('Flipped Cat', flipped)
+cv.waitKey(0)
+```
+
+<details><summary><strong>cv2.flip(src, flipCode, [dst])</strong></summary>
+
+<br>
+
+Flip a 2D array (image) around vertical, horizontal, or both axes.
+
+This method accepts two required and one optional parameters:
+
+- `src`: input image.
+- `flipCode`: this flag specifies how to flip the image. The following options are available:
+  - `0`: flip around the x-axis.
+  - `1`: flip around the y-axis.
+  - `-1`: flip around both axes.
+- `dst` (Optional): output image of the same size and depth as src image.
+
+</details>
+
+<br>
+
 ## Drawing Shapes on Images
 
 ### Creating a Blank Image
