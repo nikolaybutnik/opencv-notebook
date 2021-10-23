@@ -328,11 +328,11 @@ This method accepts three required parameters:
 ## Flipping
 
 ```py
-img = cv.imread('cute_cat.jpeg')
-flipped = cv.flip(img, 0)
-cv.imshow('Original Cat', img)
-cv.imshow('Flipped Cat', flipped)
-cv.waitKey(0)
+img = cv2.imread('cute_cat.jpeg')
+flipped = cv2.flip(img, 0)
+cv2.imshow('Original Cat', img)
+cv2.imshow('Flipped Cat', flipped)
+cv2.waitKey(0)
 ```
 
 <details><summary><strong>cv2.flip(src, flipCode, [dst])</strong></summary>
@@ -650,6 +650,62 @@ This method accepts two required and five optional parameters:
   - `cv2.BORDER_DEFAULT`
   - `cv2.BORDER_ISOLATED`
 - `borderValue` (Optional): border value in case of a constant border.
+
+</details>
+
+<br>
+
+# Contour Detection
+
+```py
+# Contour Detection - Canny
+img = cv2.imread('photography.jpeg')
+img_grayscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+img_blurred = cv2.GaussianBlur(img_grayscale, (3, 3), cv2.BORDER_DEFAULT)
+canny = cv2.Canny(img_blurred, 125, 175)
+
+contours, hierarchy = cv2.findContours(
+    canny, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+print(f'{len(contours)} contour(s) found')
+
+cv2.imshow('Canny', canny)
+
+cv2.waitKey(0)
+```
+
+```py
+# Contour Detection - Threshold
+img = cv2.imread('photography.jpeg')
+img_grayscale = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+blank_img = numpy.zeros(img.shape, dtype='uint8')
+
+ret, thresh = cv2.threshold(img_grayscale, 125, 255, cv2.THRESH_BINARY)
+
+contours, hierarchy = cv2.findContours(
+    thresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+print(f'{len(contours)} contour(s) found')
+
+cv2.drawContours(blank_img, contours, -1, (0, 0, 255), 1)
+cv2.imshow('Contours Drawn', blank_img)
+
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.findContours()</strong></summary>
+
+<br>
+
+</details>
+
+<details><summary><strong>cv2.threshold()</strong></summary>
+
+<br>
+
+</details>
+
+<details><summary><strong>cv2.drawContours()</strong></summary>
+
+<br>
 
 </details>
 
