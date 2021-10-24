@@ -30,3 +30,5 @@ cv.drawContours(blank_img, contours, -1, (0, 0, 255), 1)
 cv.imshow('Contours Drawn', blank_img)
 
 cv.waitKey(0)
+
+cv.drawContours()

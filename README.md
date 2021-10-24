@@ -26,16 +26,11 @@ cv2.waitKey(0)
 
 Capture an image from a specified file, which you can then assign to a variable. If an image can't be read, this method returns an empty matrix.
 
-This method accepts two parameters:
-
 - `path`: the path to the specified image in a string format.
-- `flag`: specifies the way in which the image should be read. The default flag is `cv2.IMREAD_COLOR`.
-
-These are the three possible flag parameters for the method:
-
-- `cv2.IMREAD_COLOR` (default): It specifies to load a color image. Any transparency of image will be neglected. Alternatively, we can pass integer value 1 for this flag.
-- `cv2.IMREAD_GRAYSCALE`: It specifies to load an image in grayscale mode. Alternatively, we can pass integer value 0 for this flag.
-- `cv2.IMREAD_UNCHANGED`: It specifies to load an image as such including alpha channel. Alternatively, we can pass integer value -1 for this flag.
+- `flag`: specifies the way in which the image should be read. Possible values:
+  - `cv2.IMREAD_COLOR` (default): It specifies to load a color image. Any transparency of image will be neglected. Alternatively, we can pass integer value 1 for this flag.
+  - `cv2.IMREAD_GRAYSCALE`: It specifies to load an image in grayscale mode. Alternatively, we can pass integer value 0 for this flag.
+  - `cv2.IMREAD_UNCHANGED`: It specifies to load an image as such including alpha channel. Alternatively, we can pass integer value -1 for this flag.
 
 </details>
 
@@ -147,8 +142,6 @@ The `shape` property of an image returns the following tuple: (height, width, nu
 
 Change the original height and/or width of a source image.
 
-This method accepts two required and four optional parameters:
-
 - `src`: input image or frame.
 - `dsize`: desired height and width of the output image in the form of a tuple.
 - `dst` (Optional): output image of the same size and depth as src image.
@@ -218,8 +211,6 @@ Returns `True` if video capturing has been initialized.
 
 `imutils.resize` function maintains the aspect ratio and provides the keyword arguments `width` and `height` so the image can be resized to the intended width/height while (1) maintaining aspect ratio and (2) ensuring the dimensions of the image do not have to be explicitly computed by the developer.
 
-This method accepts one required and three optional parameters:
-
 - `src`: input image or frame.
 - `width` (Optional): desired width of the resulting ouput.
 - `height` (Optional): desired height of the resulting ouput.
@@ -277,8 +268,6 @@ In this case, used to generate a 2x3 affine transformation matrix implemented as
 
 Apply an affine transformation to an image.
 
-This method accepts three required and four optional parameters:
-
 - `src`: input image.
 - `M`: transformation matrix.
 - `dsize`: desired size of the output image.
@@ -315,8 +304,6 @@ cv2.waitKey(0)
 
 Calculate an affine matrix of 2D rotation.
 
-This method accepts three required parameters:
-
 - `center`: center of rotation in the source image.
 - `angle`: rotation angle in degrees. Positive values mean counter-clockwise rotation (the coordinate origin is assumed to be the top-left corner).
 - `scale`: isotropic scale factor.
@@ -340,8 +327,6 @@ cv2.waitKey(0)
 <br>
 
 Flip a 2D array (image) around vertical, horizontal, or both axes.
-
-This method accepts two required and one optional parameters:
 
 - `src`: input image.
 - `flipCode`: this flag specifies how to flip the image. The following options are available:
@@ -367,8 +352,6 @@ blank = numpy.zeros((500, 500, 3), dtype='uint8')
 <br>
 
 Returns new array of given shape and type, filled with zeros.
-
-This method accepts one required and two optional parameters:
 
 - `shape`: integer or sequence of integers.
   ```py
@@ -408,8 +391,6 @@ cv2.imshow('Line', blank)
 
 Draw a straight line on an image.
 
-This method accepts five required parameters:
-
 - `image`: source image on which the line will be drawn.
 - `start_point`: starting point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
 - `end_point`: ending point coordinate of the line. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
@@ -432,8 +413,6 @@ cv2.imshow('Rectangle', blank)
 <br>
 
 Draw a rectangle on an image.
-
-This method accepts five required parameters:
 
 - `image`: source image on which the rectangle will be drawn.
 - `start_point`: starting point coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
@@ -458,8 +437,6 @@ cv2.imshow('Circle', blank)
 
 Draw a circle on an image.
 
-This method accepts five required parameters:
-
 - `image`: source image on which the rectangle will be drawn.
 - `center_ccordinates`: center coordinate of the rectangle. Coordinates are represented as a tuple of pixels, i.e. (x_coordinate, y_coordinate).
 - `radius`: radius of the circle in pixels.
@@ -483,8 +460,6 @@ cv2.waitKey(0)
 <br>
 
 Draw a text string on an image.
-
-This method accepts seven required and two optional parameters:
 
 - `image`: source image on which the rectangle will be drawn.
 - `text`: text string to be drawn on the image.
@@ -519,8 +494,6 @@ cv2.waitKey(0)
 
 Convert an image from one color space to another. There are more than 150 color-space conversion methods available in OpenCV.
 
-This method accepts two required and two optional parameters:
-
 - `src`: source image which will be converted to grayscale.
 - `code`: color space conversion code.
 - `dst` (Optional): output image of the same size and depth as source image.
@@ -544,8 +517,6 @@ cv2.waitKey(0)
 <br>
 
 Apply Gaussian blur on input image. The blurring of an image means smoothening of an image i.e., removing outlier pixels that may be noise in the image.
-
-This method accepts two required and four optional parameters:
 
 - `src`: source image to which blur will be applied.
 - `ksize`: kernel size. Kernal is matrix of an (no. of rows)\*(no. of columns) order. Its size is given in the form of tuple (no. of rows, no. of columns). no. of rows and no. of columns should be odd. If ksize is set to (0 0), then ksize is computed from sigma values.
@@ -589,8 +560,6 @@ cv2.waitKey(0)
 
 This method uses canny edge detection algorithm for finding the edges in the image.
 
-This method accepts three required and two optional parameters:
-
 - `image`: source image to be used for edge detection.
 - `threshold1`: the High threshold value of intensity gradient.
 - `threshold2`: the Low threshold value of intensity gradient.
@@ -604,8 +573,6 @@ This method accepts three required and two optional parameters:
 <br>
 
 This method is used to increase object area and accentuate features. A pixel element in the original image is ‘1’ if at least one pixel under the kernel is ‘1’. In cases like noise removal, erosion is followed by dilation. Since erosion removes white noises, it also shrinks the object, so we dilate it. Since noise is gone we can increase our object area without the noise coming back.
-
-This method accepts two required and five optional parameters:
 
 - `image`: source image to be dilated.
 - `kernel`: the matrix of odd size (3,5,7) to be convolved with the image.
@@ -631,8 +598,6 @@ This method accepts two required and five optional parameters:
 <br>
 
 This method is used to erode away the boundaries of foreground objects. A pixel in the original image (either 1 or 0) will be considered 1 only if all the pixels under the kernel are 1, otherwise, it is eroded (made to zero). Thus all the pixels near the boundary will be discarded depending upon the size of the kernel. Useful for removing small white noises. Also used to detach connected objects.
-
-This method accepts two required and five optional parameters:
 
 - `image`: source image to be eroded.
 - `kernel`: the matrix of odd size (3,5,7) to be convolved with the image.
@@ -691,21 +656,65 @@ cv2.imshow('Contours Drawn', blank_img)
 cv2.waitKey(0)
 ```
 
-<details><summary><strong>cv2.findContours()</strong></summary>
+<details><summary><strong>cv2.findContours(image, contours, mode, method, [hierarchy], [offset])</strong></summary>
 
 <br>
+
+Find contours in a binary image. This method detects change in the image color and marks it as contour.
+
+- `image`: source, an 8-bit single-channel image. Non-zero pixels are treated as 1's. Zero pixels remain 0's, so the image is treated as binary.
+- `contours`: detected contours.
+- `mode`: mode of the contour retrieval algorithm. Possible values:
+  - `cv2.RETR_EXTERNAL`: retrieves only the extreme outer contours. It sets hierarchy[i][2]=hierarchy[i][3]=-1 for all the contours.
+  - `cv2.RETR_LIST`: retrieves all of the contours without establishing any hierarchical relationships.
+  - `cv2.RETR_CCOMP`: retrieves all of the contours and organizes them into a two-level hierarchy. At the top level, there are external boundaries of the components. At the second level, there are boundaries of the holes. If there is another contour inside a hole of a connected component, it is still put at the top level.
+  - `cv2.RETR_TREE`: retrieves all of the contours and reconstructs a full hierarchy of nested contours.
+  - `cv2.RETR_FLOODFILL`: functions like `cv2.floodFill` function. Finds all pixels that are connected to eachother and have similar intensity values, and considers them as a connected component.
+- `method`: contour approximation method. Possible values:
+  - `cv2.CHAIN_APPROX_NONE`: stores absolutely all the contour points.
+  - `cv2.CHAIN_APPROX_SIMPLE`: compresses horizontal, vertical, and diagonal segments and leaves only their end points.
+  - `cv2.CHAIN_APPROX_TC89_L1`: applies one of the flavors of the Teh-Chin chain approximation algorithm.
+  - `cv2.CHAIN_APPROX_TC89_KCOS`: pplies one of the flavors of the Teh-Chin chain approximation algorithm.
+- `hierarchy` (Optional): output vector containing information about the image topology. It has as many elements as the number of contours.
+- `offset` (Optional): offset by which every contour point is shifted.
 
 </details>
 
-<details><summary><strong>cv2.threshold()</strong></summary>
+<details><summary><strong>cv2.threshold(source, thresholdValue, maxVal, thresholdingTechnique)</strong></summary>
 
 <br>
+
+Assignment of pixel values in relation to the threshold value provided. In thresholding, each pixel value is compared with the threshold value. If the pixel value is smaller than the threshold, it is set to 0, otherwise, it is set to a maximum value (generally 255).
+
+- `source`: input Image array (must be in Grayscale).
+- `thresholdValue`: value of threshold below and above which pixel values will change accordingly.
+- `maxVal`: maximum value that can be assigned to a pixel.
+- `thresholdingTechnique`: the type of thresholding to be applied. Possible values:
+  - `cv2.THRESH_BINARY`: if pixel intensity is greater than the set threshold, value set to 255, else set to 0 (black).
+  - `cv2.THRESH_BINARY_INV`: inverted or Opposite case of `cv2.THRESH_BINARY`.
+  - `cv2.THRESH_TRUNC`: if pixel intensity value is greater than threshold, it is truncated to the threshold. The pixel values are set to be the same as the threshold. All other values remain the same.
+  - `cv2.THRESH_TOZERO`: pixel intensity is set to 0, for all the pixels intensity, less than the threshold value.
+  - `cv2.THRESH_TOZERO_INV`: inverted or Opposite case of `cv2.THRESH_TOZERO`.
 
 </details>
 
-<details><summary><strong>cv2.drawContours()</strong></summary>
+<details><summary><strong>cv2.drawContours(image, contours, contourIdx, color, thickness, [lineType], [hierarchy], [maxLevel], [offset])</strong></summary>
 
 <br>
+
+- `image`: source image on which contours will be drawn.
+- `contours`: input contours obtained from the `cv2.findContours` function. Each contour is stored as a point vector.
+- `contourIdx`: pixel coordinates of the contour points are listed in the obtained contours. Using this argument, you can specify the index position from this list, indicating exactly which contour point you want to draw. Providing a negative value will draw all the contour points.
+- `color`: color of the contour points you want to be drawn.
+- `thickness`: thickness of lines the contours are drawn with. If it is negative (for example, thickness=FILLED ), the contour interiors are drawn.
+- `lineType` (Optional): type of the line connectivity. Possible values:
+  - `cv2.FILLED`
+  - `cv2.LINE_4`
+  - `cv2.LINE_8`
+  - `cv2.LINE_AA`
+- `hierarchy` (Optional): only needed if you want to draw only some of the contours (see `maxLevel`).
+- `maxLevel` (Optional): maximal level for drawn contours. If `0`, only the specified contour is drawn. If `1`, the function draws the contour(s) and all the nested contours. If `2`, the function draws the contours, all the nested contours, all the nested-to-nested contours, and so on. This parameter is only taken into account when there is hierarchy available.
+- `offset` (Optional): offset by which every contour point is shifted.
 
 </details>
 
