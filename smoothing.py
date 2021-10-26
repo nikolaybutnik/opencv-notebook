@@ -18,6 +18,6 @@ cv.imshow('Median Blur', img_median)
 
 # Bilateral Blur
 img_bilateral = cv.bilateralFilter(img, 5, 15, 15)
-cv.imshow('Bilaeral Blur', img_bilateral)
+cv.imshow('Bilateral Blur', img_bilateral)
 
 cv.waitKey(0)

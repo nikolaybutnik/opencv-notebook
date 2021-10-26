@@ -507,22 +507,96 @@ Convert an image from one color space to another. There are more than 150 color-
 
 ```py
 img = cv2.imread('cute_cat.jpeg')
-blurred_cat = cv2.GaussianBlur(img, (3, 3), cv2.BORDER_DEFAULT)
-cv2.imshow('Blurred Cat', blurred_cat)
+
+# Average Blur
+img_average = cv2.blur(img, (3, 3))
+cv.imshow('Average Blur', img_average)
+
+# Gaussian Blur
+img_gaussian = cv2.GaussianBlur(img, (3, 3), 0)
+cv.imshow('Gaussian Blur', img_gaussian)
+
+# Median Blur
+img_median = cv2.medianBlur(img, 3)
+cv.imshow('Median Blur', img_median)
+
+# Bilateral Blur
+img_bilateral = cv2.bilateralFilter(img, 5, 15, 15)
+cv.imshow('Bilateral Blur', img_bilateral)
+
 cv2.waitKey(0)
 ```
+
+<details><summary><strong>cv2.blur(src, ksize, [dst], [anchor], [borderType])</strong></summary>
+
+<br>
+
+Apply smoothing effect to an image. #ach pixel value in an image is replaced by the weighted average of the neighborhood (defined by `ksize`) intensity values.
+
+- `src`: source image to which blur will be applied.
+- `ksize`: kernel size. Kernal is matrix of an (no. of rows)\*(no. of columns) order. Its size is given in the form of tuple (no. of rows, no. of columns). no. of rows and no. of columns should be odd. If ksize is set to (0 0), then ksize is computed from sigma values.
+- `dst` (Optional): output image of the same size and depth as src image.
+- `anchor` (Optional): variable of type integer representing the anchor point. Default value is (-1, -1) meaning the anchor is at the kernel center.
+- `borderType` (Optional): specifies image boundaries while kernel is applied on image borders. Possible values:
+  - `cv2.BORDER_CONSTANT`
+  - `cv2.BORDER_REPLICATE`
+  - `cv2.BORDER_REFLECT`
+  - `cv2.BORDER_WRAP`
+  - `cv2.BORDER_REFLECT_101`
+  - `cv2.BORDER_TRANSPARENT`
+  - `cv2.BORDER_REFLECT101`
+  - `cv2.BORDER_DEFAULT`
+  - `cv2.BORDER_ISOLATED`
+
+</details>
 
 <details><summary><strong>cv2.GaussianBlur(src, ksize, [dst], [sigmaX], [sigmaY], [borderType])</strong></summary>
 
 <br>
 
-Apply Gaussian blur on input image. The blurring of an image means smoothening of an image i.e., removing outlier pixels that may be noise in the image.
+Apply Gaussian Blur on input image. The blurring of an image means smoothening of an image i.e., removing outlier pixels that may be noise in the image.
 
 - `src`: source image to which blur will be applied.
 - `ksize`: kernel size. Kernal is matrix of an (no. of rows)\*(no. of columns) order. Its size is given in the form of tuple (no. of rows, no. of columns). no. of rows and no. of columns should be odd. If ksize is set to (0 0), then ksize is computed from sigma values.
 - `dst` (Optional): output image of the same size and depth as src image.
 - `sigmaX` (Optional): standard deviation value of kernal along horizontal direction.
 - `sigmaY` (Optional): standard deviation value of kernal along vertical direction.
+- `borderType` (Optional): specifies image boundaries while kernel is applied on image borders. Possible values:
+  - `cv2.BORDER_CONSTANT`
+  - `cv2.BORDER_REPLICATE`
+  - `cv2.BORDER_REFLECT`
+  - `cv2.BORDER_WRAP`
+  - `cv2.BORDER_REFLECT_101`
+  - `cv2.BORDER_TRANSPARENT`
+  - `cv2.BORDER_REFLECT101`
+  - `cv2.BORDER_DEFAULT`
+  - `cv2.BORDER_ISOLATED`
+
+</details>
+
+<details><summary><strong>cv2.medianBlur(src, ksize, [dst])</strong></summary>
+
+Apply Median blur on input image. Takes a median of all the pixels under the kernel area and replaces the central element with this median value.
+
+- `src`: source image to which blur will be applied.
+- `ksize`: kernel size. Kernal is matrix of an (no. of rows)\*(no. of columns) order. Represented by an integer. If ksize is set to 3, the kernel will be 3x3.
+- `dst` (Optional): output image of the same size and depth as src image.
+
+<br>
+
+</details>
+
+<details><summary><strong>cv2.bilateralFilter(src, d, sigmaColor, sigmaSpace, [dst], [borderType])</strong></summary>
+
+<br>
+
+Apply a 2D Gaussian (weighted) blur to the image, while also considering the variation in intensities of neighboring pixels to minimize the blurring near edges (which we wish to preserve). What this means is that the shape of the kernel actually depends on the local image content, at every pixel location.
+
+- `src`: source image to which blur will be applied.
+- `d`: diameter of the pixel neighborhood used for filtering. If it is non-positive, it is computed from `sigmaSpace`.
+- `sigmaColor`: one-dimensional Gaussian distribution, which specifies the degree to which differences in pixel intensity can be tolerated.
+- `sigmaSpace`: spatial extent of the kernel, in both the x and y directions.
+- `dst` (Optional): output image of the same size and depth as src image.
 - `borderType` (Optional): specifies image boundaries while kernel is applied on image borders. Possible values:
   - `cv2.BORDER_CONSTANT`
   - `cv2.BORDER_REPLICATE`
