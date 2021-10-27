@@ -366,7 +366,7 @@ Returns new array of given shape and type, filled with zeros.
   [0 0 0]]
   ```
   ```py
-  array_mix_type = np.zeros((2, 2), dtype=[('x', 'int'), ('y', 'float')])
+  array_mix_type = numpy.zeros((2, 2), dtype=[('x', 'int'), ('y', 'float')])
   # Returns
   [[(0, 0.) (0, 0.)]
   [(0, 0.) (0, 0.)]]
@@ -789,6 +789,68 @@ Assignment of pixel values in relation to the threshold value provided. In thres
 - `hierarchy` (Optional): only needed if you want to draw only some of the contours (see `maxLevel`).
 - `maxLevel` (Optional): maximal level for drawn contours. If `0`, only the specified contour is drawn. If `1`, the function draws the contour(s) and all the nested contours. If `2`, the function draws the contours, all the nested contours, all the nested-to-nested contours, and so on. This parameter is only taken into account when there is hierarchy available.
 - `offset` (Optional): offset by which every contour point is shifted.
+
+</details>
+
+<br>
+
+## Bitwise Operators
+
+```py
+blank = numpy.zeros((400, 400), dtype='uint8')
+rectangle = cv2.rectangle(blank.copy(), (30, 30), (370, 370), 255, -1)
+circle = cv2.circle(blank.copy(), (200, 200), 200, 255, -1)
+cv2.imshow('Rectangle', rectangle)
+cv2.imshow('Circle', circle)
+
+# Bitwise AND => intersecting regions
+bitwise_and = cv2.bitwise_and(rectangle, circle)
+cv2.imshow('Bitwise AND', bitwise_and)
+
+# Bitwise OR => intersecting regions & non-intersecting regions
+bitwise_or = cv2.bitwise_or(rectangle, circle)
+cv2.imshow('Bitwise OR', bitwise_or)
+
+# Bitwise XOR => non-intersecting regions
+bitwise_xor = cv2.bitwise_xor(rectangle, circle)
+cv2.imshow('Bitwise XOR', bitwise_xor)
+
+# Bitwise NOT (inverts binary color)
+bitwise_not = cv2.bitwise_not(rectangle)
+cv2.imshow('Bitwise NOT', bitwise_not)
+
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.bitwise_and()</strong></summary>
+
+<br>
+
+<img src="https://files.realpython.com/media/and.ef7704d02d6f.gif" width="300" />
+
+</details>
+
+<details><summary><strong>cv2.bitwise_or()</strong></summary>
+
+<br>
+
+<img src="https://files.realpython.com/media/or.7f09664e2d15.gif" width="300" />
+
+</details>
+
+<details><summary><strong>cv2.bitwise_xor()</strong></summary>
+
+<br>
+
+<img src="https://files.realpython.com/media/xor.8c17776dd501.gif" width="300" />
+
+</details>
+
+<details><summary><strong>cv2.bitwise_not()</strong></summary>
+
+<br>
+
+<img src="https://files.realpython.com/media/not.7edac5691829.gif" width="300" />
 
 </details>
 
