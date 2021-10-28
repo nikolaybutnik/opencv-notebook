@@ -822,35 +822,62 @@ cv2.imshow('Bitwise NOT', bitwise_not)
 cv2.waitKey(0)
 ```
 
-<details><summary><strong>cv2.bitwise_and()</strong></summary>
+<details><summary><strong>cv2.bitwise_and(source1, source2, [dst], [mask])</strong></summary>
 
 <br>
 
 <img src="https://files.realpython.com/media/and.ef7704d02d6f.gif" width="300" />
 
+Bit-wise conjunction of input array elements. Returns intersecting regions.
+
+- `source1`: first input image array (Single-channel, 8-bit or floating-point)
+- `source2`: second input image array (Single-channel, 8-bit or floating-point)
+- `dst` (Optional): output array (similar to the dimensions and type of input image array)
+- `mask` (Optional): operation mask, input/output 8-bit single-channel mask.
+
 </details>
 
-<details><summary><strong>cv2.bitwise_or()</strong></summary>
+<details><summary><strong>cv2.bitwise_or(source1, source2, dst, mask)</strong></summary>
 
 <br>
 
 <img src="https://files.realpython.com/media/or.7f09664e2d15.gif" width="300" />
 
+Bit-wise disjunction of input array elements. Returns intersecting regions and non-intersecting regions.
+
+- `source1`: first input image array (Single-channel, 8-bit or floating-point)
+- `source2`: second input image array (Single-channel, 8-bit or floating-point)
+- `dst` (Optional): output array (similar to the dimensions and type of input image array)
+- `mask` (Optional): operation mask, input/output 8-bit single-channel mask.
+
 </details>
 
-<details><summary><strong>cv2.bitwise_xor()</strong></summary>
+<details><summary><strong>cv2.bitwise_xor(source1, source2, dst, mask)</strong></summary>
 
 <br>
 
 <img src="https://files.realpython.com/media/xor.8c17776dd501.gif" width="300" />
 
+Bit-wise exclusive-OR operation on input array elements. Returns non-intersecting regions.
+
+- `source1`: first input image array (Single-channel, 8-bit or floating-point)
+- `source2`: second input image array (Single-channel, 8-bit or floating-point)
+- `dst` (Optional): output array (similar to the dimensions and type of input image array)
+- `mask` (Optional): operation mask, input/output 8-bit single-channel mask.
+
 </details>
 
-<details><summary><strong>cv2.bitwise_not()</strong></summary>
+<details><summary><strong>cv2.bitwise_not(source, dst, mask)</strong></summary>
 
 <br>
 
 <img src="https://files.realpython.com/media/not.7edac5691829.gif" width="300" />
+
+Inversion of input array elements.
+
+- `source`: input image array (Single-channel, 8-bit or floating-point)
+- `dst` (Optional): output array (similar to the dimensions and type of input image array)
+- `mask` (Optional): operation mask, input/output 8-bit single-channel mask.
 
 </details>
 
