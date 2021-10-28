@@ -882,3 +882,18 @@ Inversion of input array elements.
 </details>
 
 <br>
+
+## Masking
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+blank = numpy.zeros(img.shape[:2], dtype='uint8')
+
+mask = cv2.circle(
+    blank, (img.shape[1]//2 + 75, img.shape[0]//2 + 320), 400, 255, -1)
+
+masked_img = cv2.bitwise_and(img, img, mask=mask)
+cv2.imshow('Masked Image', masked_img)
+
+cv2.waitKey(0)
+```
