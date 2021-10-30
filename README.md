@@ -897,3 +897,83 @@ cv2.imshow('Masked Image', masked_img)
 
 cv2.waitKey(0)
 ```
+
+## Computing Histograms
+
+```py
+# Computing grayscale histograms
+
+img = cv2.imread('cute_cat.jpeg')
+gray = cv2.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+################################################
+# This part is required if you want to calculate a histogram of a masked image.
+blank = numpy.zeros(img.shape[:2], dtype='uint8')
+circle = cv2.circle(
+    blank, (img.shape[1]//2 + 75, img.shape[0]//2 + 320), 400, 255, -1)
+mask = cv2.bitwise_and(gray, gray, mask=circle)
+################################################
+
+gray_hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
+################################################
+# Pass in the mask as a variable to generate histogram of a masked image.
+# gray_hist = cv2.calcHist([gray], [0], mask, [256], [0, 256])
+################################################
+
+plt.figure()
+plt.title('Grayscale Histogram')
+plt.xlabel('Bins')
+plt.ylabel('Number of Pixels')
+plt.plot(gray_hist)
+plt.xlim([0, 256])
+plt.show()
+
+cv2.waitKey(0)
+```
+
+```py
+# Computing BGR histograms
+
+img = cv2.imread('cute_cat.jpeg')
+
+################################################
+# This part is required if you want to calculate a histogram of a masked image.
+blank = numpy.zeros(img.shape[:2], dtype='uint8')
+mask = cv2.circle(
+    blank, (img.shape[1]//2 + 75, img.shape[0]//2 + 320), 400, 255, -1)
+masked_img = cv2.bitwise_and(img, img, mask=mask)
+################################################
+
+colors = ('b', 'g', 'r')
+plt.figure()
+plt.title('Color Histogram')
+plt.xlabel('Bins')
+plt.ylabel('Number of Pixels')
+for i, col in enumerate(colors):
+    hist = cv2.calcHist([img], [i], None, [256], [0, 256])
+    ################################################
+    # Pass in the mask as a variable to generate histogram of a masked image.
+    # hist = cv2.calcHist([img], [i], mask, [256], [0, 256])
+    ################################################
+    plt.plot(hist, color=col)
+    plt.xlim([0, 256])
+plt.show()
+
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.calcHist(images, channels, mask, histSize, ranges, [hist], [accumulate])</strong></summary>
+
+<br>
+
+Calculate a histogram of a set of arrays. A histogram represents the distribution of pixel intensities (whether color or grayscale) in an image. It can be visualized as a graph (or plot) that gives a high-level intuition of the intensity (pixel value) distribution. When plotting the histogram, the x-axis serves as our “bins.” If we construct a histogram with 256 bins, then we are effectively counting the number of times each pixel value occurs.
+
+- `images`: image to compute a histogram for, wrapped as a list: [myImage].
+- `channels`: list of indexes, where we specify the index of the channel we want to compute a histogram for. To compute a histogram of a grayscale image, the list would be [0]. To compute a histogram for all three red, green, and blue channels, the channels list would be [0, 1, 2].
+- `mask`: if a mask is provided, a histogram will be computed for masked pixels only. If we do not have a mask or do not want to apply one, we can provide a value of `None`.
+- `histSize`: number of bins we want to use when computing a histogram. This is a list, one for each channel we are computing a histogram for. The bin sizes do not all have to be the same. Here is an example of 32 bins for each channel: [32, 32, 32].
+- `ranges`: the range of possible pixel values. Normally, this is [0, 256] for each channel, but if you are using a color space other than RGB [such as HSV], the ranges might be different.)
+- `hist` (Optional): output histogram.
+- `accumulate` (Optional): if this flag is set, the histogram is not cleared in the beginning when it is allocated. This feature enables you to compute a single histogram from several sets of arrays, or to update the histogram in time.
+
+</details>
