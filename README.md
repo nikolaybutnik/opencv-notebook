@@ -920,13 +920,13 @@ gray_hist = cv2.calcHist([gray], [0], None, [256], [0, 256])
 # gray_hist = cv2.calcHist([gray], [0], mask, [256], [0, 256])
 ################################################
 
-plt.figure()
-plt.title('Grayscale Histogram')
-plt.xlabel('Bins')
-plt.ylabel('Number of Pixels')
-plt.plot(gray_hist)
-plt.xlim([0, 256])
-plt.show()
+matplotlib.pyplot.figure()
+matplotlib.pyplot.title('Grayscale Histogram')
+matplotlib.pyplot.xlabel('Bins')
+matplotlib.pyplot.ylabel('Number of Pixels')
+matplotlib.pyplot.plot(gray_hist)
+matplotlib.pyplot.xlim([0, 256])
+matplotlib.pyplot.show()
 
 cv2.waitKey(0)
 ```
@@ -945,19 +945,19 @@ masked_img = cv2.bitwise_and(img, img, mask=mask)
 ################################################
 
 colors = ('b', 'g', 'r')
-plt.figure()
-plt.title('Color Histogram')
-plt.xlabel('Bins')
-plt.ylabel('Number of Pixels')
+matplotlib.pyplot.figure()
+matplotlib.pyplot.title('Color Histogram')
+matplotlib.pyplot.xlabel('Bins')
+matplotlib.pyplot.ylabel('Number of Pixels')
 for i, col in enumerate(colors):
     hist = cv2.calcHist([img], [i], None, [256], [0, 256])
     ################################################
     # Pass in the mask as a variable to generate histogram of a masked image.
     # hist = cv2.calcHist([img], [i], mask, [256], [0, 256])
     ################################################
-    plt.plot(hist, color=col)
-    plt.xlim([0, 256])
-plt.show()
+    matplotlib.pyplot.plot(hist, color=col)
+    matplotlib.pyplot.xlim([0, 256])
+matplotlib.pyplot.show()
 
 cv2.waitKey(0)
 ```
@@ -975,5 +975,107 @@ Calculate a histogram of a set of arrays. A histogram represents the distributio
 - `ranges`: the range of possible pixel values. Normally, this is [0, 256] for each channel, but if you are using a color space other than RGB [such as HSV], the ranges might be different.)
 - `hist` (Optional): output histogram.
 - `accumulate` (Optional): if this flag is set, the histogram is not cleared in the beginning when it is allocated. This feature enables you to compute a single histogram from several sets of arrays, or to update the histogram in time.
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.figure([num], [figsize], [dpi], [facecolor], [edgecolor], [frameon], [FigureClass], [clear], **kwargs)</strong></summary>
+
+<br>
+
+Return a new figure instance.
+
+- `num` (Optional): a unique identifier for the figure. If a figure with that identifier already exists, this figure is made active and returned. Else, a new figure is created and returned.
+- `figsize` (Optional): width, height in inches. Default value: [6.4, 4.8].
+- `dpi` (Optional): resolution of the figure in dots-per-inch. Default value: 100.0.
+- `facecolor` (Optional): background color. Default value: white.
+- `edgecolor` (Optional): border color. Default value: white.
+- `frameon` (Optional): if False, suppress drawing the figure frame. Default value: True.
+- `FigureClass` (Optional): optionally use a custom Figure instance.
+- `clear` (Optional): if True and the figure already exists, then it is cleared. Default value: False.
+- `**kwargs`: see [this link](https://matplotlib.org/stable/api/figure_api.html#matplotlib.figure.Figure) for possible arguments.
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.title(label, [fontdict], [loc], [pad], **kwargs)</strong></summary>
+
+<br>
+
+Specify and display title of the depicted visualization.
+
+- `label`: title text string of the visualization depicted.
+- `fontdict` (Optional): controls the appearance of the text such as text size, text alignment etc. using a dictionary. Default value:
+  ```py
+  fontdict = {‘fontsize’: rcParams[‘axes.titlesize’],
+  ‘fontweight’ : rcParams[‘axes.titleweight’],
+  ‘verticalalignment’: ‘baseline’,
+  ‘horizontalalignment’: loc}
+  ```
+- `loc` (Optional): location of the title, takes string values like 'center', 'left' and 'right'. Default value: 'center'.
+- `pad` (Optional): offset of the title from the top of the axes, in points. Default value: None.
+- `**kwargs`: refers to the use of other keyword arguments as text properties such as color, fonstyle, linespacing, backgroundcolor, rotation etc.
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.xlabel(xlabel, [fontdict], [labelpad], [loc], **kwargs)</strong></summary>
+
+<br>
+
+Set the label for the x-axis.
+
+- `xlabel`: label text string.
+- `fontdict` (Optional): adds the font styles to the label. Default value: None.
+- `labelpad` (Optional): Spacing in points from the axes bounding box including ticks and tick labels. If None, the previous value is left as is. Default value: 4.0.
+- `loc` (Optional): location of the label, takes string values like 'center', 'left' and 'right'. Default value: 'center'.
+- `**kwargs`: text properties used to control the appearance of the label.
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.ylabel(ylabel, [fontdict], [labelpad], [loc], **kwargs)</strong></summary>
+
+Set the label for the y-axis.
+
+- `ylabel`: label text string.
+- `fontdict` (Optional): adds the font styles to the label. Default value: None.
+- `labelpad` (Optional): Spacing in points from the axes bounding box including ticks and tick labels. If None, the previous value is left as is. Default value: 4.0.
+- `loc` (Optional): location of the label, takes string values like 'center', 'left' and 'right'. Default value: 'center'.
+- `**kwargs`: text properties used to control the appearance of the label.
+
+<br>
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.plot(*args, [scalex], [scaley], [data], **kwargs)</strong></summary>
+
+<br>
+
+Make a 2D hexagonal binning plot of points x, y. This returns the list of Line2D objects representing the plotted data.
+
+- `x, y`: horizontal/vertical coordinates of the data points. x values are optional and default to range(len(y)). Commonly, these parameters are 1D arrays. Can also be scalars and two-dimensional. These arguments cannot be passed as keywords.
+- `scalex/scaley` (Optional): these parameters determine if the view limits are adapted to the data limits. The values are passed on to autoscale_view. Default value: True.
+- `fmt` (Optional): format string, e.g. 'ro' for red circles. Format strings are just an abbreviation for quickly setting basic line properties. This argument cannot be passed as keyword.
+- `data` (Optional): an object with labelled data. If given, provide the label names to plot in x and y.
+- `**kwargs`: used to specify properties like a line label (for auto legends), linewidth, antialiasing, marker face color.
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.xlim(*args, **kwargs)</strong></summary>
+
+<br>
+
+Used to get or set the x-limits of the current axes. This returns the tuple of the new x-axis limits.
+
+- `left`: used to set the xlim to left.
+- `right`: used to set the xlim to right.
+- `**kwargs`: text properties used to control the appearance of the label.
+
+</details>
+
+<details><summary><strong>matplotlib.pyplot.show([block])</strong></summary>
+
+<br>
+
+Display all open figures.
+
+- `block` (Optional): boolean specifying whether to wait for all figures to be closed before returning. Defaults to True in non-interactive mode and to False in interactive mode.
 
 </details>
