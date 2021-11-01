@@ -1080,4 +1080,66 @@ Display all open figures.
 
 </details>
 
+<br>
+
 ## Thresholding
+
+```py
+img = cv2.imread('cute_cat.jpeg')
+gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Simple thresholding
+threshold, thresh = cv2.threshold(gray_img, 150, 255, cv2.THRESH_BINARY)
+cv2.imshow('Simple Thershold', thresh)
+
+threshold, thresh_inv = cv2.threshold(gray_img, 150, 255, cv2.THRESH_BINARY_INV)
+cv2.imshow('Simple Threshold Inverse', thresh_inv)
+
+# Adaptive thresholding
+adaptive_thresh = cv2.adaptiveThreshold(
+    gray_img, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 3)
+cv2.imshow('Adaptive Threshold', adaptive_thresh)
+
+cv2.waitKey(0)
+```
+
+<details><summary><strong>cv2.threshold(source, thresholdValue, maxVal, thresholdingTechnique)</strong></summary>
+
+<br>
+
+Assignment of pixel values in relation to the threshold value provided. In thresholding, each pixel value is compared with the threshold value. If the pixel value is smaller than the threshold, it is set to 0, otherwise, it is set to a maximum value (generally 255).
+
+- `source`: input Image array (must be in Grayscale).
+- `thresholdValue`: value of threshold below and above which pixel values will change accordingly.
+- `maxVal`: maximum value that can be assigned to a pixel.
+- `thresholdingTechnique`: the type of thresholding to be applied. Possible values:
+  - `cv2.THRESH_BINARY`: if pixel intensity is greater than the set threshold, value set to 255, else set to 0 (black).
+  - `cv2.THRESH_BINARY_INV`: inverted or Opposite case of `cv2.THRESH_BINARY`.
+  - `cv2.THRESH_TRUNC`: if pixel intensity value is greater than threshold, it is truncated to the threshold. The pixel values are set to be the same as the threshold. All other values remain the same.
+  - `cv2.THRESH_TOZERO`: pixel intensity is set to 0, for all the pixels intensity, less than the threshold value.
+  - `cv2.THRESH_TOZERO_INV`: inverted or Opposite case of `cv2.THRESH_TOZERO`.
+
+</details>
+
+<details><summary><strong>cv2.adaptiveThreshold(src, [dst], maxVal, adaptiveMethod, thresholdType, blockSize, C)</strong></summary>
+
+<br>
+
+- `src`: input image array (single-channel, 8-bit or floating-point).
+- `dst` (Optional): output image array.
+- `maxVal`: maximum value that can be assigned to a pixel.
+- `adaptiveMethod`: method which decides how threshold value is calculated. Possible values:
+  - `cv2.ADAPTIVE_THRESH_MEAN_C`: threshold value is the mean of neighborhood area. In other words, it is the mean of the blockSize×blockSize neighborhood of a point minus constant.
+  - `cv2.ADAPTIVE_THRESH_GAUSSIAN_C`: threshold value is the weighted sum of neighborhood values where weights are a Gaussian window. In other words, it is a weighted sum of the blockSize×blockSize neighborhood of a point minus constant.
+- `thresholdType`: the type of thresholding to be applied. Possible values:
+  - `cv2.THRESH_BINARY`: if pixel intensity is greater than the set threshold, value set to 255, else set to 0 (black).
+  - `cv2.THRESH_BINARY_INV`: inverted or Opposite case of `cv2.THRESH_BINARY`.
+  - `cv2.THRESH_TRUNC`: if pixel intensity value is greater than threshold, it is truncated to the threshold. The pixel values are set to be the same as the threshold. All other values remain the same.
+  - `cv2.THRESH_TOZERO`: pixel intensity is set to 0, for all the pixels intensity, less than the threshold value.
+  - `cv2.THRESH_TOZERO_INV`: inverted or Opposite case of `cv2.THRESH_TOZERO`.
+- `blockSize`: size of a pixel neighborhood that is used to calculate a threshold value.
+- `C`: a constant value that is subtracted from the mean or weighted sum of the neighbourhood pixels.
+
+</details>
+
+<br>

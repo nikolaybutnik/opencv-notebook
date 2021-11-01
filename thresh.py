@@ -1,7 +1,6 @@
 import cv2 as cv
 
 img = cv.imread('cute_cat.jpeg')
-# cv.imshow('Cute Cat', img)
 gray_img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 # Simple thresholding
