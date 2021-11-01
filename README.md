@@ -1079,3 +1079,5 @@ Display all open figures.
 - `block` (Optional): boolean specifying whether to wait for all figures to be closed before returning. Defaults to True in non-interactive mode and to False in interactive mode.
 
 </details>
+
+## Thresholding
